@@ -404,11 +404,14 @@ def modify_utilities(time, reward, rulenames, rules, model_parameters):
     """
     Update rules with newly calculated utilities for rules whose firing led to reward.
     """
+    print('\n\nIN FORKED PYACTR!')
     for rulename in rulenames:
         for t in rulenames[rulename]:
-            utility_time = time-t
-            rules[rulename]["utility"] = round(rules[rulename]["utility"] + model_parameters["utility_alpha"]*(reward-utility_time-rules[rulename]["utility"]), 4)
-
+            print(f'previous utility: {rules[rulename]["utility"]}')
+            rules[rulename]["utility"] = round(
+                rules[rulename]["utility"] + model_parameters["utility_alpha"] * (reward - rules[rulename]["utility"]),
+                4)
+            print(f'final utility: {rules[rulename]["utility"]}')
 def calculate_setting_time(updated):
     """
     Calculate time to set a chunk in a buffer.
